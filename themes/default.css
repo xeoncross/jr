@@ -1,0 +1,294 @@
+/*
+ * Based on Mark Otto's (@mdo) "Poole"
+ * @see https://github.com/poole/poole
+ */
+
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-family: Average, serif;
+	font-size: 16px;
+	line-height: 1.5;
+}
+
+
+body {
+	color: #515151;
+	background-color: #fff;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+}
+
+/* No `:visited` state is required by default (browsers will use `a`) */
+a {
+	color: #268bd2;
+	color: #4D8FA8;
+	text-decoration: none;
+}
+/* `:focus` is linked to `:hover` for basic accessibility */
+a:hover,
+a:focus {
+	text-decoration: underline;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+	line-height: 1.25;
+	color: #313131;
+	text-rendering: optimizeLegibility;
+	font-family: 'Roboto', "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+h1 {
+	font-size: 2rem;
+}
+h2 {
+	margin-top: 1rem;
+	font-size: 1.5rem;
+}
+h3 {
+	margin-top: 1.5rem;
+	font-size: 1.25rem;
+}
+h4, h5, h6 {
+	margin-top: 1rem;
+	font-size: 1rem;
+}
+
+/* Body text */
+p {
+	margin-top: 0;
+	margin-bottom: 1rem;
+}
+
+strong {
+	color: #303030;
+}
+
+
+/* Lists */
+ul, ol, dl {
+	margin-top: 0;
+	margin-bottom: 1rem;
+}
+
+dt {
+	font-weight: bold;
+}
+dd {
+	margin-bottom: .5rem;
+}
+
+/* Misc */
+hr {
+	margin: 1.5rem 0;
+	border-top: 1px solid #f8f8f8;
+}
+
+/* Code */
+code,
+pre {
+	font-family: Menlo, Monaco, "Courier New", monospace;
+}
+code {
+	padding: .25em .5em;
+	font-size: 85%;
+	color: #bf616a;
+	background-color: #f9f9f9;
+	border-radius: 3px;
+}
+pre {
+	display: block;
+	margin-top: 0;
+	margin-bottom: 1rem;
+	padding: 1rem;
+	font-size: .8rem;
+	line-height: 1.4;
+	white-space: pre;
+	white-space: pre-wrap;
+	word-break: break-all;
+	word-wrap: break-word;
+	background-color: #f9f9f9;
+}
+pre code {
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+	background-color: transparent;
+}
+.highlight {
+	margin-bottom: 1rem;
+	border-radius: 4px;
+}
+.highlight pre {
+	margin-bottom: 0;
+}
+
+/* Quotes */
+blockquote {
+	padding: .5rem 1rem;
+	margin: .8rem 0;
+	color: #7a7a7a;
+	border-left: .25rem solid #e5e5e5;
+}
+blockquote p:last-child {
+	margin-bottom: 0;
+}
+@media (min-width: 30rem) {
+	blockquote {
+		padding-right: 5rem;
+		padding-left: 1.25rem;
+	}
+}
+
+img {
+	display: block;
+	margin: 0 0 1rem;
+	border-radius: 3px;
+}
+
+/* Tables */
+table {
+	margin-bottom: 1rem;
+	width: 100%;
+	border: 1px solid #e5e5e5;
+	border-collapse: collapse;
+}
+td,
+th {
+	padding: .25rem .5rem;
+	border: 1px solid #e5e5e5;
+}
+tbody tr:nth-child(odd) td,
+tbody tr:nth-child(odd) th {
+	background-color: #f9f9f9;
+}
+
+/* AJAX Loader */
+.spinner {
+	height:60px;
+	width:60px;
+	margin: 3em auto;
+	position:relative;
+	-webkit-animation: rotation .6s infinite linear;
+	-moz-animation: rotation .6s infinite linear;
+	-o-animation: rotation .6s infinite linear;
+	animation: rotation .6s infinite linear;
+	border-left:6px solid rgba(0,174,239,.15);
+	border-right:6px solid rgba(0,174,239,.15);
+	border-bottom:6px solid rgba(0,174,239,.15);
+	border-top:6px solid rgba(0,174,239,.8);
+	border-radius:100%;
+}
+
+@-webkit-keyframes rotation {
+	from {-webkit-transform: rotate(0deg);}
+	to {-webkit-transform: rotate(359deg);}
+}
+
+@-moz-keyframes rotation {
+	from {-moz-transform: rotate(0deg);}
+	to {-moz-transform: rotate(359deg);}
+}
+
+@-o-keyframes rotation {
+	from {-o-transform: rotate(0deg);}
+	to {-o-transform: rotate(359deg);}
+}
+
+@keyframes rotation {
+	from {transform: rotate(0deg);}
+	to {transform: rotate(359deg);}
+}
+
+/* Structure and Theme */
+
+body > div {
+	border-top: 60px solid #BAF1FF;
+}
+
+main, footer {
+	padding: 2em;
+}
+
+@media (min-width: 700px) {
+
+	html {
+		font-size: 20px;
+	}
+
+	main, footer { padding: 3em auto; }
+
+	main article h1 { 
+		padding: 1em 0;
+	}
+
+	main article,
+	footer section {
+		max-width: 600px;
+		margin: 0 auto;
+	}
+
+	footer section {
+		font-size: .65em;
+	}
+
+	footer, footer h3 {
+		font-family: sans-serif;
+	}
+}
+
+.date {
+	color: #ccc;
+	font-weight: normal;
+	margin: 1em 0;
+	text-align: right;
+	font-size: 1em;
+}
+
+footer { 
+	background: #333;
+}
+
+footer, footer h3 {
+	color: #ccc;
+	font-weight: normal;
+}
+
+footer img {
+	margin: 0 auto;
+	border: 3px solid #fff;
+}
+
+footer a {
+	color: #ccc;
+	text-decoration: underline;
+}
+
+footer aside img {
+	float: left;
+	margin: 0 1em 1em 0;
+}
+
+footer ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+footer ul li {
+	padding: 1em 0 0 0;
+}
+
+footer ul li:before {
+		content: "\2192 \0020"; /* caractýre UTF-8 */
+}
