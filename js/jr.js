@@ -6,12 +6,12 @@ var jr = {
 	markdownContent: null,
 	plugins: {}, // Defined below
 	styles : [
-		'/themes/default.css',
+		'themes/default.css',
 		'//fonts.googleapis.com/css?family=Average',
 		'//fonts.googleapis.com/css?family=Roboto:400,700'
 	],
 	scripts : [
-		'/js/showdown.js'
+		'js/showdown.js'
 		// if you want jQuery or some other library for a plugin
 		// '//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'
 	],
