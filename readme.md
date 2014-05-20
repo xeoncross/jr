@@ -14,7 +14,7 @@ Each page is written in markdown with a single `<script>` tag that includes Jr.j
 2. Create an `[article-name].html` file
 3. Paste the following code at the bottom of the page:  
 	<code>&lt;script src=&quot;jr.js&quot;&gt;&lt;/script&gt;</code>  
-4. `git commit` the new article or (sad face) SFTP up it to your web host
+4. `git commit` the new article or (sad face) SFTP it up to your web host
 
 ...and you're done! Rinse and repeat.
 
