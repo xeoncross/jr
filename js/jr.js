@@ -160,6 +160,13 @@ jr.run = function(markdownContent) {
 		<article>' + html + '</article>\
 	</main><footer></footer></div>';
 
+	// Load the footer (if any)
+	ajax('footer.html', function(x) {
+		if(x) {
+			document.getElementsByTagName('footer')[0].innerHTML = x;
+		}
+	});
+
 	// Allow plugins to process shortcode embeds
 	jr.traverseChildNodes(jr.body);
 
@@ -174,14 +181,10 @@ jr.run = function(markdownContent) {
 	}
 
 	// Set the title for browser tabs (not Search Engines)
-	document.title = document.getElementsByTagName('h1')[0].innerHTML;
-
-	// Load the footer (if any)
-	ajax('footer.html', function(x) {
-		if(x) {
-			document.getElementsByTagName('footer')[0].innerHTML = x;
-		}
-	});
+	var el = document.getElementsByTagName('h1');
+	if(el.length && el[0]) {
+		document.title = el[0].innerHTML;
+	}
 };
 
 /**
