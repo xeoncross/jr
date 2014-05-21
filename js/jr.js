@@ -15,6 +15,7 @@ var jr = {
 		// if you want jQuery or some other library for a plugin
 		// '//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'
 	],
+	scriptsLoaded: 0,
 };
 
 
@@ -105,29 +106,29 @@ jr.traverseChildNodes = function(node) {
 	}
 };
 
-/*
- * The last item we are loading is the assets.js
- * file which contains the Showdown parser. So,
- * keep testing for it until it loads!
- *
- * This isn't quite a good idea... but it works.
- */
-jr.fireWhenReady = function() {
-	var timeout, b=4;
+jr.loadScript = function(callback) {
+	jr.scriptsLoadedCallback = callback;
 
-	if (typeof window.Showdown != 'undefined') {
-		jr.run(jr.markdownContent);
-	} else {
-		timeout = setTimeout(jr.fireWhenReady, 100);
+	for (var i = 0; i < jr.scripts.length; i++) {
+		jr.writeScript(jr.scripts[i]);
 	}
 };
 
+jr.scriptLoaded = function(event) {
+	jr.scriptsLoaded++;
+
+	if (jr.scriptsLoaded === jr.scripts.length && typeof jr.scriptsLoadedCallback === "function") {
+		jr.scriptsLoadedCallback.call();
+	}
+}
+
 // Also: http://stackoverflow.com/a/7719185/99923
-jr.loadScript = function(src) {
+jr.writeScript = function(src) {
 	var s = document.createElement('script');
 	s.type = 'text/javascript';
 	s.async = true;
 	s.src = src;
+	s.addEventListener('load', function (e) {jr.scriptLoaded(e);}, false);
 	var head = document.getElementsByTagName('head')[0];
 	head.appendChild(s);
 };
@@ -223,13 +224,9 @@ function ajax(url, callback, data)
 		jr.loadStyle(jr.styles[i]);
 	}
 
-	for (var i = jr.scripts.length - 1; i >= 0; i--) {
-		jr.loadScript(jr.scripts[i]);
-	}
-
-	jr.fireWhenReady();
-
-	// If you want to see the pritty AJAX-spinner...
-	//setTimeout(jr.fireWhenReady, 1000);
+	// Write the scripts, ensure they're loaded, then run markdown conversion
+	jr.loadScript(function () {
+		jr.run(jr.markdownContent)
+	});
 
 })();
