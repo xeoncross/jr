@@ -4,6 +4,7 @@
 var jr = {
 	body : null,
 	markdownContent: null,
+	favicon: 'http://www.YOUR SITE.com/favicon.ico',
 	plugins: {}, // Defined below
 	styles : [
 		'themes/default.css',
@@ -132,6 +133,14 @@ jr.loadScript = function(src) {
 	head.appendChild(s);
 };
 
+jr.loadFavicon = function(src) {
+    var s = document.createElement('link');
+    s.type = 'image/x-icon';
+    s.id = 'favicon';
+    s.rel = 'shortcut icon';
+    s.href = src;
+};
+
 jr.loadStyle = function(href, media) {
 	var s = document.createElement('link');
 	s.type = 'text/css';
@@ -226,6 +235,9 @@ function ajax(url, callback, data)
 	for (var i = jr.scripts.length - 1; i >= 0; i--) {
 		jr.loadScript(jr.scripts[i]);
 	}
+
+	// Load favicon.ico
+	jr.loadFavicon(jr.favicon);
 
 	jr.fireWhenReady();
 
