@@ -27,3 +27,5 @@ If you want the MarkDown content to appear as human-readable MarkDown text in br
 This is a MarkDown comment that will not be rendered, but HTML renderers will see the \<pre\> tag and act accordingly.
 
 MIT License with ♡ from [David Pennington](http://davidpennington.me)
+
+[Donate Stellar](https://www.stellar.org) to xeoncross
