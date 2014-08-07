@@ -1,10 +1,12 @@
-# Welcome to Jr!
+# Welcome to Jr! (v2)
 
 A static, static content generator that moves the "generator" part to the browser.
 This site is pure text files with a single Javascript included on each page that renders
 the theme and assets as needed.
 
 Each page is written in markdown with a single `<script>` tag that includes Jr.js. Once you have created your pages then simply upload the system to your website and enjoy.
+
+Jr includes a [post editor](http://xeoncross.github.io/jr/editor.html) you can use to write your posts using a live preview of the rendered markdown. It uses `localStorage` to persist your writings even if you lose power.
 
 ## [Visit the Demo](http://xeoncross.github.io/jr)
 
