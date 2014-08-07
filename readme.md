@@ -14,8 +14,18 @@ Each page is written in markdown with a single `<script>` tag that includes Jr.j
 2. Create an `[article-name].html` file
 3. Paste the following code at the bottom of the page:  
 	<code>&lt;script src=&quot;jr.js&quot;&gt;&lt;/script&gt;</code>  
-4. `git commit` the new article or (sad face) SFTP up it to your web host
+4. `git commit` the new article or (sad face) SFTP it up to your web host
 
 ...and you're done! Rinse and repeat.
 
+## Degrading gracefully in the absence of JavaScript
+
+If you want the MarkDown content to appear as human-readable MarkDown text in browsers without JavaScript (instead of as an undelimited blob), add a line like this at the top of your documents:
+
+\[enable JavaScript to render MarkDown\]: \<pre\>
+
+This is a MarkDown comment that will not be rendered, but HTML renderers will see the \<pre\> tag and act accordingly.
+
 MIT License with ♡ from [David Pennington](http://davidpennington.me)
+
+[Donate Stellar](https://www.stellar.org) to xeoncross

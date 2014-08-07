@@ -6,12 +6,15 @@ var jr = {
 	markdownContent: null,
 	plugins: {}, // Defined below
 	styles : [
-		'themes/default.css',
-		'//fonts.googleapis.com/css?family=Average',
-		'//fonts.googleapis.com/css?family=Roboto:400,700'
+		// Choose a theme CSS
+			//'themes/default.css',
+			'themes/simple.css',
+		// Plus the code CSS if you have a programming blog
+			'themes/code.css',
 	],
 	scripts : [
-		'js/showdown.js'
+		'js/showdown.js',
+		'//google-code-prettify.googlecode.com/svn/loader/prettify.js'
 		// if you want jQuery or some other library for a plugin
 		// '//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'
 	],
@@ -150,15 +153,25 @@ jr.run = function(markdownContent) {
 
 	jr.body.id = id || 'index';
 
-	var converter = new Showdown.converter();
+	var converter = new Showdown.converter({extensions: ['github', 'prettify', 'table'] });
 
 	// Convert to HTML
 	var html = converter.makeHtml(markdownContent);
 
 	// Basic HTML5 shell wrapped in a div
-	jr.body.innerHTML = '<div><main role="main">\
+	jr.body.innerHTML = '<div class="wrapper"><main role="main">\
 		<article>' + html + '</article>\
 	</main><footer></footer></div>';
+
+	// Highlight any code out there
+	prettyPrint();
+
+	// Load the footer (if any)
+	ajax('footer.html', function(x) {
+		if(x) {
+			document.getElementsByTagName('footer')[0].innerHTML = x;
+		}
+	});
 
 	// Allow plugins to process shortcode embeds
 	jr.traverseChildNodes(jr.body);
@@ -174,14 +187,10 @@ jr.run = function(markdownContent) {
 	}
 
 	// Set the title for browser tabs (not Search Engines)
-	document.title = document.getElementsByTagName('h1')[0].innerHTML;
-
-	// Load the footer (if any)
-	ajax('footer.html', function(x) {
-		if(x) {
-			document.getElementsByTagName('footer')[0].innerHTML = x;
-		}
-	});
+	var el = document.getElementsByTagName('h1');
+	if(el.length && el[0]) {
+		document.title = el[0].innerHTML;
+	}
 };
 
 /**

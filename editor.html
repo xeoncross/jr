@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<link rel="shortcut icon" href="favicon.png">
+
+		<title>Online Markdown Editor</title>
+
+		<link href="themes/simple.css" rel="stylesheet">
+
+		<link rel="stylesheet" type="text/css" href="https://google-code-prettify.googlecode.com/svn/loader/prettify.css">
+
+		<style type="text/css">
+		/* Editor */
+		table.editor { margin: 0 auto; max-width: 64em;}
+		
+		.editor pre {
+			word-wrap: break-word;
+			white-space: pre-wrap;
+			font-family: inherit;
+		}
+
+		table.editor > tbody > tr > td {
+			padding: 0 2em;
+			max-width: 30em;
+		}
+
+		.editor small, .editor small > a {
+			color: #ccc;
+		}
+		</style>
+
+	</head>
+
+	<body>
+
+		<!-- Wrap all page content here -->
+		<div id="wrap">
+
+		<table class="editor">
+			<tr>
+				<td>
+					<h2>Create</h2>
+						<pre contenteditable="true" id="holder" class="">> Prose is architecture, not interior decoration. - Ernest Hemingway
+
+Facere nisi id cum, eum nemo molestias provident maxime ullam sed autem vitae, culpa nihil eveniet atque doloremque corporis esse quaerat. Eaque nisi ullam blanditiis esse provident repellat ea corporis aliquid molestias, quam nemo maiores obcaecati reiciendis excepturi ducimus laudantium voluptates. Voluptatem eius soluta eum praesentium, mollitia nisi ex cupiditate libero, earum temporibus vitae.
+
+	print "hello";
+	var length = ['hi'].length;
+
+[Google](http://google.com) knows all.
+
+- List Item 1
+- List Item 2
+- List Item 3
+
+						</pre>
+					
+				</td>
+				<td>
+
+					<h2>Preview</h2>
+					<div class="preview"></div>
+					<small style="float: right">(<a href="#" class="clear">delete all</a> my prose)</small>
+				</td>
+			</tr>
+		</table>
+
+		</div>
+
+		<div id="footer">
+			<div class="container">
+				<p class="text-muted"><h3><a href="#" class="download">Download File</a></h3></p>
+			</div>
+		</div>
+
+
+		<!-- Bootstrap core JavaScript
+		================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+		
+		<script type="text/javascript" src="js/showdown.js"></script>
+
+		<script src="https://google-code-prettify.googlecode.com/svn/loader/prettify.js"></script>
+
+		<!-- jQuery listener for syntax highlight -->
+		<script type="text/javascript">
+
+
+		function supports_html5_storage() {
+			try {
+				return 'localStorage' in window && window['localStorage'] !== null;
+			} catch (e) {
+				return false;
+			}
+		}
+
+		$(function() {
+
+			var localStorageSupport = supports_html5_storage();
+			var converter = new Showdown.converter({extensions: ['github', 'prettify', 'table'] });
+			var editor_markdown = null;
+			$editor = $('.editor pre');
+
+			// Load the existing document?
+			if(localStorageSupport && localStorage["editor.markdown"] && localStorage["editor.markdown"].length > 20) {
+				$editor.html(localStorage["editor.markdown"]);
+			}
+
+			$editor.keyup(function() {
+
+				// Convert to HTML
+				editor_markdown = $(this).html().replace(/<br\s*[\/]?>/gi, "\n");
+				//console.log(editor_markdown);
+				$('.preview').html(converter.makeHtml(editor_markdown));
+				prettyPrint();
+
+			}).trigger('keyup');
+
+			// If possible, and editor_markdown has been set
+			if(localStorageSupport) {
+				var intervalID = window.setInterval(function() {
+					if(editor_markdown) {
+						localStorage.setItem("editor.markdown", editor_markdown);
+						editor_markdown = null;
+						console.log('Saving changes');
+					}
+				}, 3000); // Every 3 seconds
+			}
+
+			$('.editor .clear').click(function() {
+				if (window.confirm("Do you really want erase your document?")) {
+					if(localStorage) {
+						localStorage['editor.markdown'] = '';
+					}
+					editor_markdown = null;
+					$editor.text("Once upon a time...").trigger('keyup');
+				}
+			});
+
+			$('.download').click(function(e)
+			{
+				var fileParts = [localStorage['editor.markdown']];
+
+		        // Create a blob object.
+		        var bb = new Blob(fileParts, {type : 'text/plain'});
+
+		        // Create a blob url for this. 
+		        var dnlnk = window.URL.createObjectURL(bb);
+
+		        $(this).attr('href',dnlnk);
+		        $(this).attr('download','post.html');
+			});
+		});
+		</script>
+	</body>
+</html>

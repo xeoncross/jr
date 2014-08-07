@@ -3,6 +3,10 @@
  * @see https://github.com/poole/poole
  */
 
+@import url('http://fonts.googleapis.com/css?family=Average');
+@import url('http://fonts.googleapis.com/css?family=Roboto:400,700');
+
+
 * {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -94,7 +98,7 @@ hr {
 	border-top: 1px solid #f8f8f8;
 }
 
-/* Code */
+/* Code
 code,
 pre {
 	font-family: Menlo, Monaco, "Courier New", monospace;
@@ -132,6 +136,7 @@ pre code {
 .highlight pre {
 	margin-bottom: 0;
 }
+*/
 
 /* Quotes */
 blockquote {
@@ -172,6 +177,10 @@ tbody tr:nth-child(odd) td,
 tbody tr:nth-child(odd) th {
 	background-color: #f9f9f9;
 }
+
+
+/* For gists */
+div table { margin: 0;}
 
 /* AJAX Loader */
 .spinner {
