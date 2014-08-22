@@ -31,8 +31,12 @@ p { margin: 0; padding: .75em 0 }
 	article, footer, article ul { width: 100%; margin: 1em; color: #000; background #ddd; }
 }*/
 
-header.masthead {
+header.background_image {
 	min-height: 300px;
+	border: none;
+}
+
+.background_image {
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
