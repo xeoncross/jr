@@ -1,8 +1,8 @@
+html, body { margin: 0; }
 
 body {
 	font: 1.4em/1.5 serif;
 	color: #333;
-	padding: 1em;
 }
 
 h1, h2, h3 { 
@@ -31,10 +31,18 @@ p { margin: 0; padding: .75em 0 }
 	article, footer, article ul { width: 100%; margin: 1em; color: #000; background #ddd; }
 }*/
 
+header.masthead {
+	min-height: 300px;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
 
 article {
 	max-width: 30em;
 	margin: 0 auto;
+	padding: 0 1em;
 }
 
 /* Center the image no mater the size */
@@ -86,7 +94,7 @@ article li { padding: 0.3em 1em; margin: 00; }
 
 footer { background: #f8f8f8; border-top: 1px dashed #ccc; height: 100%; }
 
-footer section { max-width: 30em; margin: 0 auto; }
+footer section { max-width: 30em; margin: 0 auto; padding: 0 1em;}
 
 footer aside img {
 	float: left;

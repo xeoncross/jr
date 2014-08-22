@@ -221,8 +221,17 @@ div table { margin: 0;}
 
 /* Structure and Theme */
 
-body > div {
+header {
 	border-top: 60px solid #BAF1FF;
+}
+
+header.masthead {
+	min-height: 300px;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	border: none;
 }
 
 main, footer {

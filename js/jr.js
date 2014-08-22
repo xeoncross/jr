@@ -2,24 +2,36 @@
  * Master Top Global Root Base Special Parent Object.... thingy
  */
 var jr = {
-	body : null,
-	markdownContent: null,
-	plugins: {}, // Defined below
+	/*
+	 * You can define content blocks to display in your theme
+	 */
+	blocks : {
+		'footer.html' : 'footer',
+		//'header.html' : 'header'
+	},
 	styles : [
 		// Choose a theme CSS
-			//'themes/default.css',
-			'themes/simple.css',
+		'themes/default.css',
+		//'themes/simple.css',
 		// Plus the code CSS if you have a programming blog
-			'themes/code.css',
+		'themes/code.css',
 	],
 	scripts : [
 		'js/showdown.js',
-		'//google-code-prettify.googlecode.com/svn/loader/prettify.js'
+		'js/prettify.js'
 		// if you want jQuery or some other library for a plugin
 		// '//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'
 	],
+
+	// Set to "true" if you want to use photo mastheads in your articles
+	masthead: true,
 };
 
+
+// Plugins are defined below
+jr.body = null;
+jr.markdownContent = null;
+jr.plugins = {}
 
 /**
  * Jr. Plugins go here
@@ -56,7 +68,7 @@ jr.plugins.gist = function(gistId, element){
 
 		var gistContainer = document.createElement('div');
 		gistContainer.innerHTML = html;
-		
+
 		element.parentNode.replaceChild(gistContainer, element);
 	};
 
@@ -109,7 +121,7 @@ jr.traverseChildNodes = function(node) {
 };
 
 /*
- * The last item we are loading is the assets.js
+ * The last item we are loading is the showdown.js
  * file which contains the Showdown parser. So,
  * keep testing for it until it loads!
  *
@@ -145,6 +157,24 @@ jr.loadStyle = function(href, media) {
 	head.appendChild(s);
 };
 
+jr.loadBlock = function(file, selector) {
+	ajax(file, function(html) {
+		if( ! html) {
+			html = 'error loading ' + file;
+		}
+
+		if(selector.substring(0,1) == '.') {
+			// IE 8+ = document.querySelector(selector);
+			var el = document.getElementsByClassName(selector.substring(1))[0];
+		} else {
+			var el = document.getElementsByTagName(selector)[0];
+		}
+
+		var e = document.createElement('div');
+		e.innerHTML = html;
+		while(e.firstChild) { el.appendChild(e.firstChild); }
+	});
+}
 
 jr.run = function(markdownContent) {
 
@@ -155,23 +185,43 @@ jr.run = function(markdownContent) {
 
 	var converter = new Showdown.converter({extensions: ['github', 'prettify', 'table'] });
 
+	var masthead = null;
+
+	if(jr.masthead) {
+		// The image should be at the top of the file somewhere
+		var re = /^[\d\D]{0,100}(\!\[[^\]]+\]\(([^\)]+)\))/; 
+
+		var match = markdownContent.match(re);
+		
+		if(match && match[2]) {
+			masthead = match[2];
+			markdownContent = markdownContent.replace(match[1], '');
+		}
+	}
+
 	// Convert to HTML
 	var html = converter.makeHtml(markdownContent);
 
 	// Basic HTML5 shell wrapped in a div
-	jr.body.innerHTML = '<div class="wrapper"><main role="main">\
-		<article>' + html + '</article>\
-	</main><footer></footer></div>';
+	jr.body.innerHTML = '<div class="wrapper">\
+		<header></header>\
+		<main role="main">\
+			<article>' + html + '</article>\
+		</main>\
+		<footer></footer>\
+	</div>';
 
-	// Highlight any code out there
-	prettyPrint();
+	// By-the-way, if we found a masthead...
+	if(masthead) {
+		var header = document.getElementsByTagName('header')[0];
+		header.style.backgroundImage = 'url(' + match[2] + ')';
+		header.className = 'masthead';
+	}
 
-	// Load the footer (if any)
-	ajax('footer.html', function(x) {
-		if(x) {
-			document.getElementsByTagName('footer')[0].innerHTML = x;
-		}
-	});
+	// Load content blocks and inject them where needed
+	for (var file in jr.blocks) {
+		jr.loadBlock(file, jr.blocks[file]);
+	}
 
 	// Allow plugins to process shortcode embeds
 	jr.traverseChildNodes(jr.body);
@@ -191,6 +241,9 @@ jr.run = function(markdownContent) {
 	if(el.length && el[0]) {
 		document.title = el[0].innerHTML;
 	}
+
+	// Highlight any code out there (wait for it to load)
+	setTimeout(function() { prettyPrint(); }, 500);
 };
 
 /**
@@ -235,7 +288,7 @@ function ajax(url, callback, data)
 
 	jr.fireWhenReady();
 
-	// If you want to see the pritty AJAX-spinner...
+	// If you want to *see* the pritty AJAX-spinner do this instead...
 	//setTimeout(jr.fireWhenReady, 1000);
 
 })();
