@@ -28,11 +28,12 @@ If you want the MarkDown content to appear as human-readable MarkDown text in br
 
 This is a MarkDown comment that will not be rendered, but HTML renderers will see the \<pre\> tag and act accordingly.
 
-## Masthead Images
+## Background Images
 
-For those of you who like to include photo mastheads on your posts. Simply place a Markdown image tag at the top of your post (within the first 100 characters) and it will be displayed in the header.
+For those of you who like to include photo mastheads or body background images on your posts. Simply add Markdown images tag with the name of the DOM element (prefixed with an underscore).
 
-	![masthead](http://example.com/image.jpg)
+	![_header](http://example.com/image.jpg)
+	![_footer](http://example.com/image.jpg)
 
 MIT License with ♡ from [David Pennington](http://davidpennington.me)
 

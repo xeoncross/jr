@@ -22,9 +22,6 @@ var jr = {
 		// if you want jQuery or some other library for a plugin
 		// '//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'
 	],
-
-	// Set to "true" if you want to use photo mastheads in your articles
-	masthead: true,
 };
 
 
@@ -185,20 +182,6 @@ jr.run = function(markdownContent) {
 
 	var converter = new Showdown.converter({extensions: ['github', 'prettify', 'table'] });
 
-	var masthead = null;
-
-	if(jr.masthead) {
-		// The image should be at the top of the file somewhere
-		var re = /^[\d\D]{0,100}(\!\[[^\]]+\]\(([^\)]+)\))/; 
-
-		var match = markdownContent.match(re);
-		
-		if(match && match[2]) {
-			masthead = match[2];
-			markdownContent = markdownContent.replace(match[1], '');
-		}
-	}
-
 	// Convert to HTML
 	var html = converter.makeHtml(markdownContent);
 
@@ -211,11 +194,28 @@ jr.run = function(markdownContent) {
 		<footer></footer>\
 	</div>';
 
-	// By-the-way, if we found a masthead...
-	if(masthead) {
-		var header = document.getElementsByTagName('header')[0];
-		header.style.backgroundImage = 'url(' + match[2] + ')';
-		header.className = 'masthead';
+	// Find all background images and put them in the right elements
+	var images = document.getElementsByTagName('main')[0].getElementsByTagName('img');
+
+	// Put all "background" images in their repective DOM elements
+	for (var i = images.length - 1; i >= 0; i--) {
+		
+		var img = images[i];
+
+		// BG images have the format "_[elementname]"
+		if(img.alt.substring(0,1) == '_') {
+
+			// Look for that DOM element
+			var el = document.getElementsByTagName(img.alt.substring(1))[0];
+			if(el) {
+
+				el.style.backgroundImage = 'url(' + img.src + ')';
+				el.className += ' background_image';
+
+				// We don't need this anymore
+				img.parentNode.removeChild(img);
+			}
+		}
 	}
 
 	// Load content blocks and inject them where needed
