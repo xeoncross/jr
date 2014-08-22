@@ -197,12 +197,6 @@ jr.run = function(markdownContent) {
 			masthead = match[2];
 			markdownContent = markdownContent.replace(match[1], '');
 		}
-
-		// @note: another approach
-		// markdownContent.replace(re, function(match) {
-		// 	document.getElementsByTagName('header')[0].style.backgroundImage = 'url(' + match[2] + ')';
-		// 	return match[1];
-		// });
 	}
 
 	// Convert to HTML
@@ -242,19 +236,6 @@ jr.run = function(markdownContent) {
 		}
 	}
 
-	// Look for a master header image and place it in the header
-	// if(jr.masthead) {
-	// 	var main = document.getElementsByTagName("main")[0];
-	// 	var masthead = main.getElementsByTagName("img");
-	// 	if(masthead[0]) {
-	// 		masthead[0].className = 'masthead';
-	// 		//document.getElementsByTagName('header')[0].appendChild(masthead[0]);
-	// 		document.getElementsByTagName('header')[0].style.backgroundImage = 'url(' + masthead[0].src + ')';
-	// 		masthead[0].parentNode.removeChild(masthead[0]);
-	// 	}
-	// }
-
-
 	// Set the title for browser tabs (not Search Engines)
 	var el = document.getElementsByTagName('h1');
 	if(el.length && el[0]) {
@@ -271,16 +252,14 @@ jr.run = function(markdownContent) {
  */
 function ajax(url, callback, data)
 {
-	//try {
-		var x = new(window.ActiveXObject||XMLHttpRequest)('Microsoft.XMLHTTP');
-		x.open(data ? 'POST' : 'GET', url, 1);
-		x.setRequestHeader('X-Requested-With','XMLHttpRequest');
-		x.setRequestHeader('Content-type','application/x-www-form-urlencoded');
-		x.onreadystatechange = function() {
-			x.readyState > 3 && callback && callback(x.responseText, x);
-		};
-		x.send(data);
-	//} catch (e) { console.log(e); }
+	var x = new(window.ActiveXObject||XMLHttpRequest)('Microsoft.XMLHTTP');
+	x.open(data ? 'POST' : 'GET', url, 1);
+	x.setRequestHeader('X-Requested-With','XMLHttpRequest');
+	x.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+	x.onreadystatechange = function() {
+		x.readyState > 3 && callback && callback(x.responseText, x);
+	};
+	x.send(data);
 };
 
 

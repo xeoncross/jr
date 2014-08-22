@@ -1,4 +1,4 @@
-# Welcome to Jr! (v2)
+# Welcome to Jr! (v1.2)
 
 A static, static content generator that moves the "generator" part to the browser.
 This site is pure text files with a single Javascript included on each page that renders
@@ -27,6 +27,12 @@ If you want the MarkDown content to appear as human-readable MarkDown text in br
 \[enable JavaScript to render MarkDown\]: \<pre\>
 
 This is a MarkDown comment that will not be rendered, but HTML renderers will see the \<pre\> tag and act accordingly.
+
+## Masthead Images
+
+For those of you who like to include photo mastheads on your posts. Simply place a Markdown image tag at the top of your post (within the first 100 characters) and it will be displayed in the header.
+
+	![masthead](http://example.com/image.jpg)
 
 MIT License with ♡ from [David Pennington](http://davidpennington.me)
 
