@@ -17,8 +17,9 @@ var jr = {
 		'themes/code.css',
 	],
 	scripts : [
-		'js/showdown.js',
-		'js/prettify.js'
+		'js/showdown-prettify.min.js',
+		'js/showdown.min.js',
+		'js/prettify.js',
 		// if you want jQuery or some other library for a plugin
 		// '//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'
 	],
@@ -127,7 +128,7 @@ jr.traverseChildNodes = function(node) {
 jr.fireWhenReady = function() {
 	var timeout, b=4;
 
-	if (typeof window.Showdown != 'undefined') {
+	if (typeof window.showdown != 'undefined') {
 		jr.run(jr.markdownContent);
 	} else {
 		timeout = setTimeout(jr.fireWhenReady, 100);
@@ -180,7 +181,7 @@ jr.run = function(markdownContent) {
 
 	jr.body.id = id || 'index';
 
-	var converter = new Showdown.converter({extensions: ['github', 'prettify', 'table'] });
+	var converter = new showdown.Converter({tables: true, tasklists: true, extensions: ['prettify']});
 
 	// Convert to HTML
 	var html = converter.makeHtml(markdownContent);
