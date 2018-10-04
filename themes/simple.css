@@ -47,17 +47,19 @@ article {
 	max-width: 30em;
 	margin: 0 auto;
 	padding: 0 1em;
+	position: relative;
 }
 
 /* Center the image no mater the size */
 article img {
-    -webkit-transform:translateX(-50%);
-       -moz-transform:translateX(-50%);
-        -ms-transform:translateX(-50%);
-         -o-transform:translateX(-50%);
-            transform:translateX(-50%);
-    margin-left:50%;
-    margin-right: -50em;
+    -webkit-transform:translate(-50%, -50%);
+       -moz-transform:translate(-50%, -50%);
+        -ms-transform:translate(-50%, -50%);
+         -o-transform:translate(-50%, -50%);
+            transform:translate(-50%, -50%);
+    	top: 50%;
+	left: 50%;
+	position: absolute;
 }
 
 article blockquote {
