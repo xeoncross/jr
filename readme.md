@@ -4,7 +4,7 @@ A static, static content generator that moves the "generator" part to the browse
 This site is pure text files with a single Javascript included on each page that renders
 the theme and assets as needed.
 
-Each page is written in markdown with a single `<script>` tag that includes Jr.js. Once you have created your pages then simply upload the system to your website and enjoy.
+Each page is written in markdown with a single `<script>` tag that includes Jr.js. Once you have created your pages then simply upload the system to your website and enjoy it.
 
 Jr includes a [post editor](http://xeoncross.github.io/jr/editor.html) you can use to write your posts using a live preview of the rendered markdown. It uses `localStorage` to persist your writings even if you lose power.
 
